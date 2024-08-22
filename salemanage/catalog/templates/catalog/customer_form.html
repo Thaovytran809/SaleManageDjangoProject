@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id='wrapper'>
+  <div class="container">
+    <div class="row justify-content-around">
+        {% if error %}
+          <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form action="" class="col-md-6 bg-light p-3 my-3" method="post">
+        <h1 class="text-center text-uppercase h3 py-3">{% if customer.pk %}Update{% else %}Create{% endif %} Customer</h1>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for='created_date'>Created date:</label>
+            <input type='date' id='created_date'class='form-control' name='created_date'  value="{{ customer.created_date }}" required>
+          </div>
+          <div class="form-group">
+            <label for='customer_name'>Customer Name:</label>
+            <input type='text' id='customer_name' class="form-control" name='cus_name'  value="{{ customer.cus_name }}" required>
+          </div>
+          <div class="form-group">
+            <label for='pkkh'>PKKH:</label>
+            <textarea type='textarea' id='pkkh' class="form-control" name='pkkh'>  {{ customer.pkkh }} </textarea>
+          </div>
+          <div class="form-group">
+            <label for='categories'>Category Name:</label>
+            <select name='categories' class='form-control' multiple>
+              {% for category in categories %}
+              <option value='{{ category.id }}' {% if category in customer.categories.all %}selected{% endif %}>{{ category.c_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for='product'>Product Name:</label>
+            <select name='products' class='form-control' multiple>
+              {% for product in products %}
+              <option value='{{ product.id }}' {% if product in  customer.products.all %}selected{% endif %}>{{ product.p_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <button type='submit'>Submit</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

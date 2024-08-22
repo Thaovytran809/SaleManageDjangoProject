@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class='header'>Product: {{ product.p_name }}</h1>
+  {% if perms.product.change_product or perms.product.delete_product %}
+  <div class="row">
+    {% if perms.product.change_product %}
+      <p class='col-sm-2 func-p'><a href="{% url 'product_update' product.id %}">Update product</a></p>
+    {% endif %}
+    {% if  perms.product.delete_product %}
+      <p class='col-sm-2 func-p'><a href="{% url 'product_delete' product.id %}">Delete product</a></p>
+    {% endif %}
+  </div>
+  {% endif %}
+
+<div class="row">
+  {% if product.p_image %}
+    <img class='col-sm-6 content-image' src="{{ product.p_image.url }}" />
+  {% else %}
+    <p>No image available.</p>
+  {% endif%}
+    <div class='col-sm-5 content-text'>
+  <h5><strong>Product:</strong> {{ product.p_name }}</h5>
+  <h5><strong>Catagory:</strong><a href="{{ product.catagory.get_absolute_url }}">{{ product.catagory }}</a></h5>
+  <h5><strong>Price:</strong> {{ product.price }} VNĐ</h5>
+    </div>
+<div>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class='header'>Customer List</h1>
+  {% if user.is_staff %}
+    <p class='func-p'><a href="{% url 'customer_create' %}">Create customer</a></p>
+  {% endif %}
+  {% if customer_list %}
+    <div class='content-text'>
+      {% for customer in customer_list %}
+      <tr>
+        <td><a href="{{ customer.get_absolute_url }}">{{ customer.cus_name }}</a></td>
+        <hr />
+      </tr>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>There are no customer in the product.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class='header' >Category List</h1>
+  {% if user.is_staff %}
+    <p class='func-p'><a href="{% url 'catagory_create' %}">Create category</a></p>
+  {% endif %}
+  {% if catagory_list %}
+    <div class='content-text'>
+      {% for catagory in catagory_list %}
+      <p class='col-sm-5'>
+        <a href="{{ catagory.get_absolute_url }}">{{ catagory.c_name }}</a>
+        <hr />
+      </p>
+      {% endfor %}
+      
+    </div>
+  {% else %}
+    <p>There are no category in the store.</p>
+  {% endif %}
+{% endblock %}

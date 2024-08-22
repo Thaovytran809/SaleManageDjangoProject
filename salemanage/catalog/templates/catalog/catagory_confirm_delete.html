@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Delete Category: {{ catagory }}</h1>
+
+{% if catagory.product_set.exists %}
+<p>You can't delete this category until all their product have been deleted:</p>
+{% else %}
+<p>Are you sure you want to delete the catagory?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete.">
+</form>
+{% endif %}
+
+{% endblock %}

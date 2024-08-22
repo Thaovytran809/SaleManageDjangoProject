@@ -1,0 +1,11 @@
+<div class='wrapper'>
+  <div class='container'>
+    <div class="row justify-content-around">
+      <form method='post' class='col-md-6 bg-light p-3 my-3' action="{% url 'upload_file'%}" enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{file_form.as_p}}
+          <button type='submit'>Up_load</button>
+        </form>
+</div>
+</div>
+</div>

@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class='header'>Customer: {{ customer.cus_name }}</h1>
+
+  {% if perms.customer.change_customer or perms.customer.delete_customer %}
+  <div class='row'>
+    {% if perms.customer.change_customer %}
+      <p class='col-sm-2 func-p'><a href="{% url 'customer_update' customer.id %}">Update customer</a></p>
+    {% endif %}
+    {% if perms.customer.delete_customer %}
+      <p class='col-sm-2 func-p'><a href="{% url 'customer_delete' customer.id %}">Delete customer</a></p>
+    {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+<div class='content-text'>
+  <p><strong>Customer name:</strong> {{ customer.cus_name }}</p>
+  <p><strong>Customer description:</strong> {{ customer.pkkh }}</p>
+  <p><strong>Created Date:</strong> {{ customer.created_date }}</p>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Categories purchased:</h4>
+    <ul>
+        {% for catagory in customer.categories.all %}
+        <li><a href="{{ catagory.get_absolute_url }}">{{ catagory.c_name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h4>Product purchased:</h4>
+    <ul>
+    {% for product in customer.products.all %}
+    <li><a href="{{ product.get_absolute_url }}">{{product.p_name}}</a></li>
+    {% endfor%}
+    </ul>
+
+    <h4>Order purchased</h4>
+    <ul>
+    {% for order in customer.order_set.all %}
+    <li><a href="{{ order.get_absolute_url }}">{{order}}</a></li>
+    {% endfor%}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+

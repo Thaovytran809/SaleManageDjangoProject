@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+{% block content%}
+<h1 class='header'>Order detail: {{order}}</h1>
+{% if perms.order.change_order or perms.order.delete_order %}
+  <div class="row">
+    {% if perms.order.change_order %}
+      <p class='col-sm-2 func-p'><a href="{% url 'order_update' order.id %}">Update order</a></p>
+    {% endif %}
+    {% if perms.order.delete_order %}
+      <p class='col-sm-2 func-p'><a href="{% url 'order_delete' order.id %}">Delete order</a></p>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class='content-text'>
+<p><strong>Customer name:</strong><a href="{{ order.customer.get_absolute_url}}">{{ order.customer.cus_name }}</a></p>
+<p><strong>Create date:</strong>{{ order.created_date }}</p>
+<p><strong>Category:</strong><a href="{{ order.catagory.get_absolute_url}}">{{ order.catagory.c_name }}</a></p>
+<p><strong>Product:</strong><a href="{{ order.product.get_absolute_url}}">{{ order.product.p_name }}</a></p>
+<p><strong>Count:</strong> {{ order.count }}</p>
+<p><strong>Total:</strong> {{ order.total }} VNĐ</p>
+  </div>
+</div>
+{% endblock %}
+

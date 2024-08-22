@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class='header'>Order List</h1>
+  {% if user.is_staff %}
+  <div class='row'>
+    <p class='col-sm-2 func-p'><a href="{% url 'order_create' %}">Create order</a></p>
+    <p class='col-sm-2 func-p'><a href="{% url 'upload_file' %}">Upload_file</a></p>
+  </div>
+  {% endif %}
+  {% if order_list %}
+    <div class='content-text'>
+      {% for order in order_list %}
+      <tr>
+        <td><a href="{{ order.get_absolute_url }}">{{order }}</a></td>
+        <hr />
+      </tr>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>There are no order for the customer.</p>
+  {% endif %}
+{% endblock %}

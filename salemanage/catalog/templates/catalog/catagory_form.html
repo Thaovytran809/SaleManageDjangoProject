@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id='wrapper'>
+  <div class="container">
+    <div class="row justify-content-around">
+      {% if error %}
+      <p style="color: red;">{{ error }}</p>
+      {% endif %}
+        <form method='post' class="col-md-6 bg-light p-3 my-3" enctype="multipart/form-data">
+          <h1 class="text-center text-uppercase h3 py-3">{% if catagory.pk %}Update{% else %}Create{% endif %} Category</h1>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for='catagory_name'>Category Name:</label>
+            <input type='text' id='catagory_name' class="form-control" name='c_name'  value="{{ catagory.c_name }}" required>
+          </div>
+          <div class="form-group">
+            <label for='catagory_image'>Category Image:</label>
+            <input type='file' id='catagory_image' class="form-control" name='c_image'>
+            {% if catagory.c_image %}
+              <img src="{{ catagory.c_image.url }}" alt="Current image" style="max-width: 200px"/>
+            {% endif %}
+          </div>
+          <div>
+            <button type='submit' class="btn-block">Submit</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

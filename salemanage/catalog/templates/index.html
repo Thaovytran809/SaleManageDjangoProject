@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class='header'>
+  <h1>V_TEA STORTE</h1>
+  <h4>
+    Welcome to <strong>V_TEA STORE!</strong>
+  </h4>
+</div>
+  <div class='row'>
+    <div class='col-sm-6 content-image'>
+      {% load static %}
+        <img
+        src="{% static 'images/TeaShop_SHOPNo1.webp' %}"
+        alt="UML diagram"
+        style="width:555px;height:540px;" />
+    </div>
+    <div class='col-sm-5 content-text'>
+      <h5>V_TEA STORE has the following categories:</h5>
+        <h5><a href="{% url 'catagorys' %}"><strong>Catagorys:</strong></a> {{ num_catagory }}</h5>
+        <h5><a href="{% url 'products' %}"><strong>Products:</strong></a> {{ num_product }}</h5>
+        <h5><a href="{% url 'customers' %}"><strong>Customers:</strong></a> {{ num_customer }}</h5>
+        <h5><a href="{% url 'orders' %}"><strong>Orders:</strong></a> {{ num_order }}</h5>
+    </div>
+</div>
+{% endblock %}

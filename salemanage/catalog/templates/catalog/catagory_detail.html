@@ -1,0 +1,35 @@
+{% extends 'base_generic.html' %}
+{% block content%}
+  <h1 class='header'>Category: {{catagory.c_name}}</h1>
+
+  {% if perms.catalog.change_catagory or perms.catalog.delete_catagory %}
+  <div class="row">
+    {% if perms.catalog.change_catagory %}
+    <div class='col-sm-2'>
+      <p class='func-p'><a href="{% url 'catagory_update' catagory.id %}">Update catagory</a></p>
+    </div>
+    {% endif %}
+    {% if not product.product_set.all and perms.catalog.delete_catagory %}
+    <div class='col-sm-2'>
+      <p class='func-p'><a href="{% url 'catagory_delete' catagory.id %}">Delete catagory</a></p>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class='row'>
+    {% if catagory.c_image%}
+      <img class="col-sm-6 content-image" src="{{ catagory.c_image.url }}" alt="{{ catagory.c_name}}" />
+    {% else%}
+      <p>No image available.</p>
+    {% endif %}
+      <div class='col-sm-5 content-text'>
+        <h5>List Product:</h5>
+        {% for product in catagory.product_set.all %}
+        <h5><a href="{{ product.get_absolute_url }}">{{ product.p_name }}</a></h5>
+        {% endfor%}
+      </div>
+  </div>
+{% endblock %}
+
+

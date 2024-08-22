@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id='wrapper'>
+  <div class="container">
+    <div class="row justify-content-around">
+      {% if error %}
+        <p style="color: red;">{{ error }}</p>
+      {% endif %}
+      <form action="" method="post" class="col-md-6 bg-light p-3 my-3" enctype="multipart/form-data">
+        <h1 class="text-center text-uppercase h3 py-3">{% if customer.pk %}Update{% else %}Create{% endif %} Product</h1>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for='product_name'>Product Name:</label>
+          <input type='text' id='product_name' class="form-control" name='p_name'  value="{{ product.p_name }}" required>
+        </div>
+        <div class="form-group">
+          <label for='catagory'>Category Name:</label>
+          <select name='catagory' class='form-control'>
+            {% for catagory in catagorys %}
+            <option value='{{ catagory.id }}' {% if product.catagory.id == catagory.id %}selected{% endif %}>{{ catagory.c_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for='product_price'>Product Price:</label>
+          <input type='number' id='product_price'class="form-control" name='price' min='0' step='1'  value="{{ product.price }}" required>
+        </div>
+        <div class="form-group">
+          <label for='product_image'>Product Image:</label>
+          <input type='file' id='product_image' class="form-control" name='p_image'>
+          {% if product.p_image %}
+            <img src="{{ product.p_image.url }}" alt="Current image" style="max-width: 200px"/>
+          {% endif %}
+        </div>
+        <div>
+          <button type='submit'>Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

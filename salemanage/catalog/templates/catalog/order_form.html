@@ -1,0 +1,85 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id='wrapper'>
+  <div class="container">
+    <div class="row justify-content-around">
+      {% if error %}
+        <p style="color: red;">{{ error }}</p>
+      {% endif %}
+      <form action="" class="col-md-6 bg-light p-3 my-3" method="post">
+        <h1 class="text-center text-uppercase h3 py-3">{% if order.pk %}Update{% else %}Create{% endif %} Product</h1>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for='created_date'>Created date:</label>
+          <input type='date' id='created_date' class="form-control" name='created_date'  value="{{ order.created_date }}" required>
+        </div>
+        <div class="form-group">
+          <label for='customer'>Customer Name:</label>
+          <select name='customer' class='form-control'>
+            {% for customer in customers %}
+            <option value='{{ customer.id }}' {% if order.customer.id == customer.id %}selected{% endif %}>{{ customer.cus_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for='catagory'>Category Name:</label>
+          <select name='catagory' class='form-control'>
+            {% for catagory in catagorys %}
+            <option value='{{ catagory.id }}' {% if product.catagory.id == catagory.id %}selected{% endif %}>{{ catagory.c_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for='product'>Product Name:</label>
+          <select id='product' name='product' class='form-control'>
+            {% for product in products %}
+            <option value='{{ product.id }}' data-price='{{product.price}}' {% if order.product.id == product.id %}selected{% endif %}>{{ product.p_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for='count'>Count:</label>
+          <input type='number' id='count_id' class="form-control" name='count' min='1' step='1' value={{ order.count }} required>
+        </div>
+        <div class="form-group">
+          <label for='total'>Total Money:</label>
+          <input type='text' id='total_id' class="form-control" name='total' value={{ order.total|default:"0" }} readonly>
+        </div>
+        <div>
+          <button type='submit'>Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var productSelect = document.getElementById('product');
+    var countInput = document.getElementById('count_id');
+    var totalInput = document.getElementById('total_id');
+
+    function calculateTotal() {
+        var selectedProduct = productSelect.options[productSelect.selectedIndex];
+        var price = parseFloat(selectedProduct.getAttribute('data-price'));
+        var count = parseInt(countInput.value);
+
+        if (!isNaN(price) && !isNaN(count) && count > 0) {
+            totalInput.value = (price * count).toFixed(2);
+        } else {
+            totalInput.value = '';
+        }
+    }
+
+    // Lắng nghe sự kiện thay đổi trên sản phẩm và số lượng
+    productSelect.addEventListener('change', calculateTotal);
+    countInput.addEventListener('input', calculateTotal);
+
+    // Tính toán total lần đầu tiên khi trang được tải
+    calculateTotal();
+});
+
+</script>
+{% endblock %}

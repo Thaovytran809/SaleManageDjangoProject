@@ -1,0 +1,130 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+.sidebar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0c4b33;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+.sidebar-nav li {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+}
+.sidebar-nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.sidebar-nav li span, /* CSS cho phần tử chứa username */
+.sidebar-nav li button {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.sidebar-nav li button {
+  background: #0c4b33;
+  border: 0.5px solid white;
+  border-radius: 10px;
+  height: 30px;
+  width: 60px;
+  margin-top: 10px;
+}
+.sidebar-nav li a:hover {
+    color: #73efbf;
+}
+.sidebar-nav li button:hover {
+    color: #0c4b33;
+    background-color: white;
+}
+.header {
+    color: white;
+    text-align: center;
+    background-color: #44b78b;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0.5%;
+    width: 100%;
+    box-sizing: border-box;
+}
+.content-text {
+    display: block;
+    background-color: #f0f0f0;
+}
+.content-text h5 {
+    display: block;
+    color: #156741;
+    text-align: left;
+    padding: 14px 16px;
+    background-color: #f0f0f0; 
+  }
+.content-text a {
+    color: #156741;
+    text-align: left;
+    padding: 14px 16px;
+    text-decoration: none; 
+    font-weight: 500
+  }
+.content-text a:hover {
+    color: #73efbf;
+}
+
+.content-image {
+    display: block;
+    margin-left: 45px;
+    background-size: cover;
+    background-position: center;
+    background-image: #f0f0f0;
+}
+.func-p a{
+    display: block;
+    color: #0c4b33;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background: white;
+    border: 0.5px solid #0c4b33;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+    font-weight: 700;
+}
+.func-p a:hover {
+    color: white;
+    background-color: #0c4b33;
+}
+form button {
+    display: block;
+    justify-content: center;
+    color: #0c4b33;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background: white;
+    border: 0.5px solid #0c4b33;
+    border-radius: 10px;
+    margin: 10px auto 0 auto;;
+    width: fit-content;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+form button:hover {
+    color: white;
+    background-color: #0c4b33;
+    border: 0.5px solid #0c4b33;
+}
