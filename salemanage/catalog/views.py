@@ -256,8 +256,8 @@ def upload_file(request):
                     if customer.cus_name!=customer_name:
                         customer.cus_name==customer_name
                         customer.save()
-                customer.categories.set([catagory])
-                customer.products.set([product])
+                customer.categories.add([catagory])
+                customer.products.add([product])
                 
                 
                 Order.objects.create(
