@@ -243,22 +243,34 @@ def upload_file(request):
                 price_value = float(row[header.index('Đơn giá')])
                 pkkh_value = row[header.index('Mã PKKH')]
 
+                customer = Customer.objects.filter(cus_name = customer_name).first()
+                if customer:
+                    catagory,_ = Catagory.objects.get_or_create(c_name = catagory_name)
+                    product, product_create = Product.objects.get_or_create(
+                        p_name = product_name,
+                        defaults={'price':price_value, 'catagory': catagory}
+                    )
+                    if not product_create and product.price != price_value:
+                        product.price = price_value
+                        product.save()
+                    customer.categories.add(catagory)
+                    customer.products.add(product)
+                else:
+                    customer = Customer.objects.create(
+                        pkkh=pkkh_value,
+                        cus_name = customer_name
+                    )
+                    catagory,_ = Catagory.objects.get_or_create(c_name = catagory_name)
+                    product, product_create = Product.objects.get_or_create(
+                        p_name = product_name,
+                        defaults={'price':price_value, 'catagory': catagory}
+                    )
+                    if not product_create and product.price != price_value:
+                        product.price = price_value
+                        product.save()
+                    customer.categories.add(catagory)
+                    customer.products.add(product)
 
-                
-                
-                catagory,_ = Catagory.objects.get_or_create(c_name=catagory_name)
-                product, product_created = Product.objects.get_or_create(p_name=product_name, defaults={'price': price_value, 'catagory': catagory})
-                if not product_created and product.price != price_value:
-                    product.price = price_value
-                    product.save()
-                customer, customer_created = Customer.objects.get_or_create(pkkh=pkkh_value, defaults={'cus_name':customer_name})
-                if not customer_created:
-                    if customer.cus_name!=customer_name:
-                        customer.cus_name==customer_name
-                        customer.save()
-                customer.categories.add([catagory])
-                customer.products.add([product])
-                
                 
                 Order.objects.create(
                     customer=customer,
